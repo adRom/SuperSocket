@@ -318,7 +318,8 @@ namespace SuperSocket.SocketEngine
             if (!m_SendingQueuePool.TryGet(out newQueue))
             {
                 OnSendEnd(CloseReason.InternalError, true);
-                AppSession.Logger.Error("There is no enougth sending queue can be used.");
+                AppSession.Logger.Error($"There are not enough sending queue that can be used - {m_SendingQueuePool.AvialableItemsCount}/{m_SendingQueuePool.TotalItemsCount} available (Min: {m_SendingQueuePool.MinPoolSize} Max: {m_SendingQueuePool.MaxPoolSize})");
+                
                 return;
             }
 
@@ -348,7 +349,6 @@ namespace SuperSocket.SocketEngine
 
             if (queue.Count == 0)
             {
-                
                 m_SendingQueuePool.Push(queue);
                 OnSendEnd(CloseReason.InternalError, true);
                 AppSession.Logger.Error("There is no data to be sent in the queue.");
