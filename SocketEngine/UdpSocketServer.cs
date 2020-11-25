@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using SuperSocket.SocketBase;
+using SuperSocket.SocketBase.Protocol;
+using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using SuperSocket.Common;
-using SuperSocket.SocketBase;
-using SuperSocket.SocketBase.Command;
-using SuperSocket.SocketBase.Protocol;
-using SuperSocket.SocketEngine.AsyncSocket;
 
 namespace SuperSocket.SocketEngine
 {
@@ -94,7 +88,10 @@ namespace SuperSocket.SocketEngine
                 return null;
 
             if (!AppServer.RegisterSession(appSession))
+            {
+                socketSession.Close(CloseReason.ServerClosing);
                 return null;
+            }
 
             Interlocked.Increment(ref m_ConnectionCount);
 

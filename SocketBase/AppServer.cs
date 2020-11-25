@@ -1,20 +1,10 @@
-﻿using System;
+﻿using SuperSocket.SocketBase.Protocol;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
-using System.Reflection;
-using System.Security.Authentication;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using SuperSocket.Common;
-using SuperSocket.SocketBase.Command;
-using SuperSocket.SocketBase.Config;
-using SuperSocket.SocketBase.Protocol;
-using SuperSocket.SocketBase.Security;
 
 namespace SuperSocket.SocketBase
 {
@@ -141,7 +131,7 @@ namespace SuperSocket.SocketBase
                 return true;
 
             if (Logger.IsErrorEnabled)
-                Logger.Error(appSession, "The session is refused because the it's ID already exists!");
+                Logger.Error(appSession, $"The session is refused because the ID '{sessionID}' already exists!");
 
             return false;
         }
